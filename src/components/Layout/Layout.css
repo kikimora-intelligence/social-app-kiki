@@ -1,0 +1,12 @@
+.layout-main {
+  min-height: calc(100vh - 80px);
+  max-width: 420px; /* Set your desired max-width */
+  margin: 0 auto; /* Center horizontally */
+
+  padding-top: 99px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
