@@ -1,0 +1,114 @@
+/* PotionsPage.css */
+
+.page-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff; /* Set text color to white */
+}
+
+.potion-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.potion-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  max-width: 250px;
+  text-align: center;
+  background-color: #fff; /* Set background color to white */
+}
+
+.potion-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.potion-name {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333; /* Set text color to a dark color */
+}
+
+.potion-description {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555; /* Set text color to a slightly darker color */
+}
+
+.potion-price {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #4caf50; /* Set text color to a green color */
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.add-to-cart-button,
+.details-button {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.add-to-cart-button:hover,
+.details-button:hover {
+  background-color: #45a049;
+}
+
+.shopping-cart {
+  margin-top: 20px;
+  max-width: 400px;
+  background-color: #fff; /* Set background color to white */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.cart-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333; /* Set text color to a dark color */
+}
+
+.cart-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-item {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #555; /* Set text color to a slightly darker color */
+}
+
+.total-sum {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #4caf50; /* Set text color to a green color */
+}
+
+.checkout-button {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.checkout-button:hover {
+  background-color: #45a049;
+}
