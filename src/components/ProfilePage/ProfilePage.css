@@ -1,0 +1,34 @@
+.profile-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: var(--text-color);
+}
+
+.profile-picture {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-picture img {
+  border-radius: 50%;
+  border: 3px solid var(--link-color);
+  margin-bottom: 1rem;
+}
+
+.profile-posts {
+  margin-top: 2rem;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.post-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}

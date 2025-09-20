@@ -1,0 +1,9 @@
+* [33m895fe05[m[33m ([m[1;36mHEAD -> [m[1;32mnew-history[m[33m)[m feat: setup Express backend, MongoDB models and routes
+* [33mf554ac0[m feat: implement services and axios instance for API calls
+* [33m832698e[m feat: add gallery, potions and spells pages
+* [33m836f3ea[m feat: build login and registration pages with validation
+* [33me45dd3a[m feat: create header with navigation links, theme toggle and account dropdown
+* [33m9e7b2d0[m feat: add authentication context for user state management
+* [33m4e2633c[m feat: implement theme context and theme toggle button
+* [33m4b9810d[m chore: add routing and layout components
+* [33m453a8e2[m chore: initialize React project and setup basic structure

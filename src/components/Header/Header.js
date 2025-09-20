@@ -77,10 +77,30 @@ export default function Header() {
                 title="Your profile"
                 className={styles.profilePic}
                 style={{ cursor: "pointer" }}
-                onClick={() => navigate("/profile")}
+                onClick={() => setShowDropdown((prev) => !prev)}
               />
               <span>{user.username}</span>
-              <button onClick={logout}>Logout</button>
+              {showDropdown && (
+                <div className={styles.dropdown}>
+                  <NavLink to="/profile" onClick={() => setShowDropdown(false)}>
+                    Account
+                  </NavLink>
+                  <NavLink
+                    to="/settings"
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    Settings
+                  </NavLink>
+                  <NavLink
+                    to="/notifications"
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    Notifications
+                  </NavLink>
+                  <hr />
+                  <button onClick={logout}>Logout</button>
+                </div>
+              )}
             </div>
           ) : (
             <>

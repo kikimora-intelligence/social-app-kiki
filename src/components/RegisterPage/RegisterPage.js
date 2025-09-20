@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import axios from "../../api/axios";
-import styles from "./RegisterPage.module.css";
+
 import { useNavigate } from "react-router-dom";
 
 const REGISTER_URL = "/register";
