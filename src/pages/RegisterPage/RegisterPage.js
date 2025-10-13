@@ -1,18 +1,18 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
-import "./Login.css";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
-const LOGIN_URL = "/login";
+const REGISTER_URL = "/register";
 
-const Login = () => {
-  const { setUser } = useContext(AuthContext); // use setUser from AuthContext
+const RegisterPage = () => {
+  const { setUser } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
   const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   const navigate = useNavigate();
@@ -23,56 +23,51 @@ const Login = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [email, pwd]);
+  }, [email, username, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        { email, password: pwd },
-        { withCredentials: true }
-      );
-
-      const accessToken = response?.data?.accessToken;
-
-      // Save token in localStorage
-      localStorage.setItem("accessToken", accessToken);
-
-      // Update AuthContext with user data
-      setUser({
-        email: response.data.email,
-        username: response.data.username,
-        pictureUrl: response.data.pictureUrl,
-        token: accessToken,
+      const response = await axios.post(REGISTER_URL, {
+        email,
+        username,
+        password,
       });
 
-      // Reset form fields
-      setEmail("");
-      setPwd("");
+      // Optional: log in user immediately after register
+      const { accessToken } = response.data;
+      if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+        setUser({
+          email,
+          username,
+          token: accessToken,
+        });
+      }
 
-      // Redirect to homepage or profile
-      navigate("/");
+      setEmail("");
+      setUsername("");
+      setPassword("");
+
+      navigate("/"); // go to feed or homepage
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Email or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        setErrMsg("Missing fields");
+      } else if (err.response?.status === 409) {
+        setErrMsg("Email or Username Taken");
       } else {
-        setErrMsg("Login Failed");
+        setErrMsg("Registration Failed");
       }
 
-      if (errRef.current) {
-        errRef.current.focus();
-      }
+      errRef.current?.focus();
     }
   };
 
   return (
-    <div className="Login">
+    <div className="Register">
       <section>
         <p
           ref={errRef}
@@ -81,7 +76,7 @@ const Login = () => {
         >
           {errMsg}
         </p>
-        <h1>Sign In</h1>
+        <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email:</label>
           <input
@@ -94,21 +89,30 @@ const Login = () => {
             required
           />
 
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            required
+          />
+
           <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
-            onChange={(e) => setPwd(e.target.value)}
-            value={pwd}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             required
           />
-          <button type="submit">Sign In</button>
+
+          <button type="submit">Sign Up</button>
         </form>
         <p>
-          Need an Account?
-          <br />
+          Already have an account? <br />
           <span className="line">
-            <a href="http://localhost:3000/register">Sign Up</a>
+            <a href="/login">Sign In</a>
           </span>
         </p>
       </section>
@@ -116,4 +120,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RegisterPage;

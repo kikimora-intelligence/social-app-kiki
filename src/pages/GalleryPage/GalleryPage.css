@@ -1,18 +1,32 @@
+@media (max-width: 600px) {
+  .image-gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0.5rem;
+  }
+  .image-gallery img {
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+    /* height: 160px;  махаме го, защото aspect-ratio прави снимката квадратна */
+  }
+}
+
 .image-gallery {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 100%;
   margin: 0 auto;
 }
 
 .image-gallery img {
   width: 100%;
-  height: 450px;
+  aspect-ratio: 1/1;
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   filter: drop-shadow(0 0 5px rgba(128, 0, 128, 0.5));
+  border-radius: 8px;
 }
 
 .image-gallery img:hover {

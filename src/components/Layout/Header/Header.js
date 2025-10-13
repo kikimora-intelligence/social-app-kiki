@@ -1,9 +1,9 @@
 // src/components/Header/Header.js
 import { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import ThemeContext from "../../context/ThemeContext";
-import { getImageUrl } from "../../services/userService";
+import AuthContext from "../../../context/AuthContext";
+import ThemeContext from "../../../context/ThemeContext";
+import { getImageUrl } from "../../../services/userService";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";

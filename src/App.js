@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
-import GalleryPage from "./components/GalleryPage/GalleryPage";
-import PotionsPage from "./components/PotionsPage/PotionsPage";
-import SpellsPage from "./components/SpellsPage/SpellsPage";
-import TarotReadingPage from "./components/TarotReadingPage/TarotReadingPage";
+import Layout from "./components/layout/Layout";
 
-import Login from "./components/Login/Login";
-import RegisterPage from "./components/RegisterPage/RegisterPage";
-import ProfilePage from "./components/ProfilePage/ProfilePage";
+import FeedPage from "./pages/FeedPage/FeedPage";
+import GalleryPage from "./pages/GalleryPage/GalleryPage";
+import PotionsPage from "./pages/PotionsPage/PotionsPage";
+import SpellsPage from "./pages/SpellsPage/SpellsPage";
+import TarotReadingPage from "./pages/TarotReadingPage/TarotReadingPage";
+
+import Login from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -17,22 +19,7 @@ import "./context/Theme.css";
 
 import "./App.css";
 
-const Home = () => (
-  <div className="art-gallery-container">
-    <main className="art-gallery-main">
-      <h2>Home Page</h2>
-    </main>
-
-    <footer className="art-gallery-footer">{/* Footer content */}</footer>
-  </div>
-);
-
 const App = () => {
-  const handleLogin = (username) => {
-    // Handle the login logic, e.g., update the user state
-    console.log(`${username} logged in`);
-  };
-
   return (
     <div>
       <Router>
@@ -40,7 +27,7 @@ const App = () => {
           <ThemeProvider>
             <Layout>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<FeedPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<RegisterPage />} />
