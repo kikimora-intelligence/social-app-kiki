@@ -1,134 +1,52 @@
-// src/components/Header/Header.js
-import { useContext, useState, useRef, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import AuthContext from "../../../context/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import ThemeContext from "../../../context/ThemeContext";
-import { getImageUrl } from "../../../services/userService";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "./Header.module.css";
 
 export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // fix the online user count later when u focus on the backend solely
+    fetch("/api/online")
+      .then((r) => r.json())
+      .then((d) => setCount(d.online))
+      .catch(() => setCount(null));
   }, []);
 
   const links = [
-    { path: "/", label: "Home", end: true },
-    { path: "/gallery", label: "Gallery" },
-    { path: "/potions", label: "Potions" },
-    { path: "/spells", label: "Spells" },
+    { path: "/", label: "Home" },
+    { path: "/gallery", label: "Connect" },
+    { path: "/potions", label: "Forums" },
+    { path: "/spells", label: "Lexicons" },
     { path: "/tarot", label: "Tarot" },
+    { path: "/games", label: "Games" }, // Fixed: different path
   ];
 
   return (
-    <header className={styles.header}>
-      <nav className={styles.nav}>
-        {/* Theme toggle */}
-        <div className={styles.toggleContainer}>
-          <button
-            className={`${styles.themeButton} ${styles[theme]}`}
-            onClick={toggleTheme}
-            aria-label="Theme"
-          >
-            <span style={{ marginLeft: "8px" }}>☾</span>
-            <span style={{ marginRight: "8px" }}>☀</span>
-          </button>
+    <>
+      <header className={styles.Header0}>
+        <div className={styles.Settings}>
+          {count !== null ? `${count} online` : "Loading..."}
         </div>
+        <div className={styles.Logo}>
+          <img src="/images/Kagome_Doll.png" alt="hina doll Lilico logo" />
+        </div>
+        <div className={styles.Account}>
+          <img src="/images/user.png" alt="user" />
+        </div>
+      </header>
 
-        {/* Nav links */}
-        <div className={styles.navLinks}>
-          {links.map(({ path, label, end }) => (
-            <NavLink
-              key={path}
-              to={path}
-              end={end}
-              className={({ isActive }) =>
-                isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-              }
-            >
-              {label}
+      <header className={styles.Header}>
+        <nav>
+          {links.map((link) => (
+            <NavLink key={link.label} to={link.path}>
+              {link.label}
             </NavLink>
           ))}
-        </div>
-
-        {/* Account/Profile */}
-        <div className={styles.accountContainer} ref={dropdownRef}>
-          {user ? (
-            <div className={styles.userContainer}>
-              <img
-                src={getImageUrl(user.pictureUrl)}
-                alt="Profile"
-                title="Your profile"
-                className={styles.profilePic}
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowDropdown((prev) => !prev)}
-              />
-              <span>{user.username}</span>
-              {showDropdown && (
-                <div className={styles.dropdown}>
-                  <NavLink to="/profile" onClick={() => setShowDropdown(false)}>
-                    Account
-                  </NavLink>
-                  <NavLink
-                    to="/settings"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    Settings
-                  </NavLink>
-                  <NavLink
-                    to="/notifications"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    Notifications
-                  </NavLink>
-                  <hr />
-                  <button onClick={logout}>Logout</button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <>
-              <button
-                className={styles.accountButton}
-                onClick={() => setShowDropdown((prev) => !prev)}
-                aria-label="Account"
-              >
-                <FontAwesomeIcon icon={faUser} size="lg" />
-              </button>
-
-              {showDropdown && (
-                <div className={styles.dropdown}>
-                  <NavLink to="/login" onClick={() => setShowDropdown(false)}>
-                    Login
-                  </NavLink>
-                  <NavLink
-                    to="/register"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    Register
-                  </NavLink>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   );
 }

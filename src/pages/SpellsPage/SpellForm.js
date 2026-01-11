@@ -1,10 +1,11 @@
 // SpellForm.js
 import React, { useState } from "react";
+import styles from "./SpellForm.module.css";
 
 const SpellForm = ({ onSpellSubmit }) => {
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [ingredients, setIngredients] = useState("");
+
   const [image, setImage] = useState(null);
 
   const handleSubmit = (e) => {
@@ -16,7 +17,7 @@ const SpellForm = ({ onSpellSubmit }) => {
     const newSpell = {
       title,
       instructions,
-      ingredients,
+
       image,
     };
 
@@ -26,7 +27,7 @@ const SpellForm = ({ onSpellSubmit }) => {
     // Clear the form fields after submission
     setTitle("");
     setInstructions("");
-    setIngredients("");
+
     setImage(null);
   };
 
@@ -36,7 +37,7 @@ const SpellForm = ({ onSpellSubmit }) => {
   };
 
   return (
-    <div className="SpellForm">
+    <div className={styles.SpellForm}>
       <h2>Add a New Spell</h2>
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
@@ -48,17 +49,10 @@ const SpellForm = ({ onSpellSubmit }) => {
         />
 
         <label>Instructions:</label>
-        <textarea
-          value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
-          required
-        />
-
-        <label>Ingredients:</label>
         <input
           type="text"
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
           required
         />
 

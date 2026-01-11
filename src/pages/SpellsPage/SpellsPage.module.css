@@ -1,0 +1,9 @@
+/* Add more styles as needed */
+
+.SpellsPage {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  background-color: rgb(78, 38, 76);
+}

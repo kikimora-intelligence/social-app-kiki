@@ -5,6 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden; /* важно! */
+
+  background-size: cover; /* or 'repeat' if you want tiling */
+  background-repeat: repeat;
+  background-position: top left;
 }
 
 code {

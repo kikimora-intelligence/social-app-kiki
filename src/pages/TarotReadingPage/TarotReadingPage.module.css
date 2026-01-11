@@ -1,0 +1,136 @@
+.TarotPageLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  grid-template-rows: 1fr;
+  gap: 5%;
+}
+
+.TarotReadingServiceInput label {
+  padding-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+.TarotReadingServiceInput {
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / 2;
+
+  border: 1px solid red;
+}
+
+.TarotReadingServiceInput input {
+  padding: 1%;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  grid-column: 1 / 2;
+
+  border: 1px solid red;
+}
+
+.TarotReadingServiceInput button {
+  font-weight: bold;
+}
+.TarotReadingServiceInput text {
+  font-size: 1em;
+  padding-top: 0.8rem;
+}
+
+.RandomTarotIframeDiv {
+  flex: 1;
+  display: flex;
+  grid-column: 2 / 3;
+  justify-content: flex-end;
+  border: 1px solid red;
+  align-self: start;
+}
+.RandomTarotIframeDiv iframe {
+  border: none;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.TarotReadingServiceInput textarea {
+  padding: auto;
+}
+
+.ModalWrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+} /*this takes up the whole screen and blurs it */
+
+.ModalContent {
+  border: 1px black solid;
+  box-shadow: 0 0 30px #000000;
+  width: 40vw;
+  height: 50vh;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  line-height: 1.5rem;
+  z-index: 1001; /* above the blur */
+}
+
+.ReadingOptions {
+  display: flex;
+  gap: 3rem;
+  height: 50%;
+  flex-direction: row;
+  justify-content: center;
+  line-height: 1.5rem;
+}
+.Option {
+  border: 3px solid rebeccapurple;
+  padding: 1rem;
+  width: 30%;
+}
+.Option p {
+  line-height: 1.5rem;
+}
+.Option:hover {
+  border-color: #9b5de5;
+  box-shadow: 0 0 10px #9b5de5;
+  cursor: pointer;
+}
+
+.Option:has(input[type="radio"]:checked) {
+  box-shadow: 0 0 20px #c082ff, 0 0 40px #7f00ff44;
+  border-color: #c082ff;
+  background: rgba(50, 0, 80, 0.2);
+}
+
+.EmailFieldWrapper {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.6s ease, max-height 0.6s ease;
+}
+
+.EmailFieldWrapper.Show {
+  opacity: 1;
+  max-height: 80px;
+  margin-top: 0.5rem;
+}
+
+.EmailInput {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #888;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.EmailInput:focus {
+  border-color: #ffb6ff;
+  box-shadow: 0 0 10px 2px #ff8cff;
+  outline: none;
+}

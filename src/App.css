@@ -2,4 +2,8 @@
 
 body {
   font-family: "Playfair Display", sans-serif;
+  background-image: url("C:\Users\krist\gallery\my-gothic-art-gallery\public\images\branches-on-red-sky1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

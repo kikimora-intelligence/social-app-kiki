@@ -1,62 +1,161 @@
-import React, { useState } from 'react';
-import QuestionForm from './QuestionForm';
+import React, { useRef, useState } from "react";
+
+import styles from "./TarotReadingPage.module.css";
 
 const TarotReadingPage = () => {
-  const [selectedCard, setSelectedCard] = useState({});
-  const [selectedQuestion, setSelectedQuestion] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [readingType, setReadingType] = useState("");
+  const [deliveryMethod, setDeliveryMethod] = useState("profile");
+  const [email, setEmail] = useState("");
+  const textareaRef = useRef(null);
 
-  const tarotDeck = [
-    { id: 1, title: 'The Fool', image: 'https://i.pinimg.com/736x/ce/ae/a1/ceaea120f1a40a51c13c244b3d945097.jpg', interpretation: 'A new beginning and spontaneous actions.', description: 'The Fool represents new adventures, unexpected opportunities, and taking risks. Embrace the unknown with an open heart.' },
-    { id: 2, title: 'The Magician', image: 'https://i.pinimg.com/736x/e1/39/5d/e1395d6cbd60be9676c839953b7f7d2b.jpg', interpretation: 'Manifestation and power.', description: 'The Magician symbolizes personal power, resourcefulness, and the ability to manifest your desires. Focus on your goals and use your talents wisely.' },
-    { id: 3, title: 'The High Priestess', image: 'https://example.com/images/high-priestess.jpg', interpretation: 'Intuition and mystery.', description: 'The High Priestess represents intuition, mysteries, and the unconscious mind. Trust your instincts and explore the depths of your inner wisdom.' },
-    { id: 4, title: 'The Empress', image: 'https://example.com/images/empress.jpg', interpretation: 'Nurturing and abundance.', description: 'The Empress symbolizes nurturing energy, fertility, and abundance. Connect with nature and cultivate a loving, supportive environment.' },
-    { id: 5, title: 'The Emperor', image: 'https://example.com/images/emperor.jpg', interpretation: 'Authority and structure.', description: 'The Emperor represents authority, leadership, and structured control. Set clear boundaries and take a disciplined approach to achieve your goals.' },
-    // Add more cards with descriptions as needed
-  ];
+  const username = "Lilico"; //Example: dynamically insert from auth later
 
-  const questions = [
-    'Will I find love?',
-    'Will I fulfill my purpose?',
-    'Am I on the right path?',
-    // Add more questions as needed
-  ];
-
-  const handleQuestionSubmit = () => {
-    // Select a random tarot card
-    const randomCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
-    setSelectedCard(randomCard);
-  };
-
-  const handleQuestionChange = (event) => {
-    setSelectedQuestion(event.target.value);
+  const handleInput = () => {
+    const text = textareaRef.current;
+    text.style.height = "auto";
+    text.style.height = text.scrollHeight + "px";
   };
 
   return (
-    <div>
-      <div>
-        <label>Select a Question:</label>
-        <select value={selectedQuestion} onChange={handleQuestionChange}>
-          <option value="" disabled>Select a question...</option>
-          {questions.map((question, index) => (
-            <option key={index} value={question}>{question}</option>
-          ))}
-        </select>
+    <div className={styles.TarotPageLayout}>
+      <div className={styles.TarotReadingServiceInput}>
+        <label>You can now get a personal tarot reading by oracle Lilico</label>
+        <textarea
+          ref={textareaRef}
+          placeholder="Question?"
+          onInput={handleInput}
+          className={styles.Textarea}
+        />
+
+        <button
+          onClick={() => setShowModal(true)}
+          className={styles.SendButton}
+        >
+          ?
+        </button>
+        <text>
+          Your Tarot Reading will be provided to you by Lilico via a private
+          message to your username's account or via e-mail. You get to decide
+          where you'd like to receive it once you've written your question and
+          clicked on "?".
+        </text>
       </div>
+      {showModal && (
+        <div className={styles.ModalWrapper}>
+          <div className={styles.ModalContent}>
+            <h3>Choose your reading type</h3>
 
-      {/* Render QuestionForm and pass the handleQuestionSubmit callback */}
-      <QuestionForm onQuestionSubmit={handleQuestionSubmit} />
+            <div className={styles.ReadingOptions}>
+              <label className={styles.Option}>
+                <input
+                  type="radio"
+                  name="reading"
+                  value="standard"
+                  checked={readingType === "standard"}
+                  onChange={() => setReadingType("standard")}
+                />
+                <div>
+                  <strong>
+                    Standard-lenght Reading <br />
+                    €10
+                  </strong>
+                  <p>(half a page minimum).</p>
+                </div>
+              </label>
 
-      {/* Display the selected card */}
-      {selectedCard && (
-        <div>
-          <h2>{selectedQuestion}</h2>
-          <img src={process.env.PUBLIC_URL + selectedCard.image} alt={selectedCard.title} />
+              <label className={styles.Option}>
+                <input
+                  type="radio"
+                  name="reading"
+                  value="deep"
+                  checked={readingType === "deep"}
+                  onChange={() => setReadingType("deep")}
+                />
+                <div>
+                  <strong>
+                    Deep-Dive Reading <br />
+                    €20
+                  </strong>
+                  <p>Comprehensive multi-card analysis (full page minimum).</p>
+                </div>
+              </label>
+            </div>
+
+            <h4>Where should your reading be sent?</h4>
+            <div className={styles.DeliveryOptions}>
+              <label>
+                <input
+                  type="radio"
+                  name="delivery"
+                  value="profile"
+                  checked={deliveryMethod === "profile"}
+                  onChange={() => setDeliveryMethod("profile")}
+                />
+                As a message to your acc ({username})
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="delivery"
+                  value="email"
+                  checked={deliveryMethod === "email"}
+                  onChange={() => setDeliveryMethod("email")}
+                />
+                To email
+              </label>
+
+              {/* Smooth fade for the email field */}
+              <div
+                className={`${styles.EmailFieldWrapper} ${
+                  deliveryMethod === "email" ? styles.Show : ""
+                }`}
+              >
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.EmailInput}
+                />
+              </div>
+            </div>
+
+            <p>Choose a payment method:</p>
+            <div className={styles.PaymentButtons}>
+              <button
+                onClick={() =>
+                  window.open("https://revolut.me/yourname", "_blank")
+                }
+              >
+                Pay with Revolut
+              </button>
+              <button
+                onClick={() =>
+                  window.open("https://paypal.me/yourname", "_blank")
+                }
+              >
+                Pay with PayPal
+              </button>
+            </div>
+            <button onClick={() => setShowModal(false)}>Cancel</button>
+          </div>
         </div>
       )}
+
+      <div className={styles.RandomTarotIframeDiv}>
+        <iframe
+          src="https://randomtarotcard.com/"
+          scrolling="no"
+          width="100%"
+          height="600vh"
+          title="Random Tarot Card"
+          overflow="hidden"
+        ></iframe>
+      </div>
     </div>
   );
 };
 
 export default TarotReadingPage;
-
-
